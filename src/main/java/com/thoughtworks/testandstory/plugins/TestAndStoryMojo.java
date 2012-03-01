@@ -1,5 +1,7 @@
 package com.thoughtworks.testandstory.plugins;
 
+import java.io.File;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -9,11 +11,20 @@ import org.apache.maven.plugin.MojoFailureException;
  */
 public class TestAndStoryMojo extends AbstractMojo {
 
+	/**
+	 * @parameter testDirectries
+	 */
+	private String[] testDirectries;
+	
+	/**
+	 * @parameter report
+	 */
+	private File report;
+	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		System.out.println("=========================================");
-		System.out.println("            The System Criteria          ");
-		System.out.println("=========================================");
+		TestInformations testInformations = TestedStories.find(testDirectries).get();
+		new Reporter().generateReport(testInformations, report);
 	}
 
 }

@@ -1,9 +1,10 @@
 package com.thoughtworks.testandstory.plugins;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Reporter {
@@ -14,33 +15,49 @@ public class Reporter {
 
 	public String report(TestInformations testInformations) {
 		if (testInformations.all().isEmpty()) return "";
-		
-		StringBuffer snappitForStories = new StringBuffer();
+		return generateReportForTests(testInformations);
+	}
+
+	private String generateReportForTests(TestInformations testInformations) {
+		StringBuffer reportForStories = new StringBuffer();
 		for (int storyNumber : testInformations.storyNumbers()) {
-			StringBuffer snappitForTests = new StringBuffer();
-			for (TestInformation info : testInformations.getTestInformationsBy(storyNumber)) {
-				testTemplate.add("type", info.type().toString().toLowerCase());
-				testTemplate.add("description", info.getDescription());
-				snappitForTests.append(testTemplate.render());
-			}
-			storyTemplate.add("number", storyNumber);
-			storyTemplate.add("tests", snappitForTests);
-			snappitForStories.append(storyTemplate.render());
+			reportForStories.append(reportForStory(testInformations, storyNumber));
 		}
 		
-		reportTemplate.add("stories", snappitForStories.toString());
+		reportTemplate.add("stories", reportForStories.toString());
 		return reportTemplate.render();
 	}
 
-	public void generateReport(TestInformations infos) throws IOException {
-		FileWriter writer = new FileWriter("report.html");
-		writer.write(report(infos));
-		writer.close();
+	private String reportForStory(TestInformations testInformations, int storyNumber) {
+		StringBuffer reportForTestsInStory = new StringBuffer();
+		for (TestInformation info : testInformations.getTestInformationsBy(storyNumber)) {
+			reportForTestsInStory.append(reportForTest(info));
+		}
+		storyTemplate.add("number", storyNumber);
+		storyTemplate.add("tests", reportForTestsInStory);
+		return storyTemplate.render();
+	}
+
+	private String reportForTest(TestInformation info) {
+		testTemplate.add("type", info.type().toString().toLowerCase());
+		testTemplate.add("description", info.getDescription());
+		return testTemplate.render();
+	}
+
+	public void generateReport(TestInformations infos, File report) {
+		try {
+			FileWriter writer = new FileWriter("report.html");
+			writer.write(report(infos));
+			writer.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	private String readFileContentAsString(String templateName) {
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("templates/" + templateName)));
+			InputStream templateStream = this.getClass().getClassLoader().getResourceAsStream("templates/" + templateName);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(templateStream));
 			StringBuffer content = new StringBuffer();
 			String currentLine = reader.readLine();
 			while(currentLine != null) {

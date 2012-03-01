@@ -112,7 +112,7 @@ public class TestedStories {
 	private static void loadClass(File classesDirectory, String classPackageName, List<Class<?>> results) {
 		try {
 			URL[] urls = new URL[] {classesDirectory.toURI().toURL()};
-			URLClassLoader classLoader = new URLClassLoader(urls);
+			URLClassLoader classLoader = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
 			results.add(classLoader.loadClass(classPackageName));
 		} catch (Exception e) {
 			e.printStackTrace();
