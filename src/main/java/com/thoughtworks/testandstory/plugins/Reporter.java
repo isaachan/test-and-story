@@ -40,8 +40,7 @@ public class Reporter {
 	
 	private String readFileContentAsString(String templateName) {
 		try {
-//			BufferedReader reader = new BufferedReader(new FileReader("./templates/" + templateName));
-			BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("./templates/" + templateName)));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("templates/" + templateName)));
 			StringBuffer content = new StringBuffer();
 			String currentLine = reader.readLine();
 			while(currentLine != null) {
