@@ -1,5 +1,6 @@
 package com.thoughtworks.testandstory.plugins;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main {
@@ -10,7 +11,7 @@ public class Main {
 			System.exit(0);
 		}
 		TestInformations testInformations = TestedStories.find(args).get();
-		new Reporter().generateReport(testInformations);
+		new Reporter().generateReport(testInformations, new File("report.html"));
 	}
 
 }
