@@ -22,7 +22,7 @@ public class TestedStoriesTest {
 		TestInformation info = infos.get(0);
 		
 		assertEquals(732, info.number());
-		assertEquals("should_get_information_from_method_labeled_by_story", info.getDescription());
+		assertEquals("should_get_information_from_method_labeled_by_story", info.getMethodOrClassName());
 		assertTrue(info.fromMethod());
 	}
 	
@@ -77,7 +77,7 @@ public class TestedStoriesTest {
 		TestInformation info = infos.get(0);
 		assertEquals(731, info.number());
 		assertEquals(StoryType.FUNCTIONAL, info.type());
-		assertEquals("FunctionalTestCase", info.getDescription());
+		assertEquals("FunctionalTestCase", info.getMethodOrClassName());
 		assertFalse(info.fromMethod());
 	}
 	

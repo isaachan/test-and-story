@@ -42,8 +42,8 @@ public class TestInformationsTest {
 		
 		List<TestInformation> infosFor731 = infos.getTestInformationsBy(731);
 		assertEquals(3, infosFor731.size());
-		assertEquals("test 3", infosFor731.get(0).getDescription());
-		assertEquals("test 2", infosFor731.get(1).getDescription());
-		assertEquals("test 4", infosFor731.get(2).getDescription());
+		assertEquals("test 3", infosFor731.get(0).getMethodOrClassName());
+		assertEquals("test 2", infosFor731.get(1).getMethodOrClassName());
+		assertEquals("test 4", infosFor731.get(2).getMethodOrClassName());
 	}
 }

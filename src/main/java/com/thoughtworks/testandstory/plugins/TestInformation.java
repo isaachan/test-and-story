@@ -4,13 +4,13 @@ public class TestInformation implements Comparable<TestInformation>{
 
 	private final int number;
 	private final StoryType type;
-	private final String description;
+	private final String methodOrClassName;
 	private final boolean fromMethod;
 
-	public TestInformation(int number, StoryType type, String description, boolean fromMethod) {
+	public TestInformation(int number, StoryType type, String methodOrClassName, boolean fromMethod) {
 		this.number = number;
 		this.type = type;
-		this.description = description;
+		this.methodOrClassName = methodOrClassName;
 		this.fromMethod = fromMethod;
 	}
 
@@ -22,8 +22,8 @@ public class TestInformation implements Comparable<TestInformation>{
 		return type;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getMethodOrClassName() {
+		return methodOrClassName;
 	}
 
 	public boolean fromMethod() {
@@ -35,7 +35,7 @@ public class TestInformation implements Comparable<TestInformation>{
 		if (this.number != other.number) return other.number - this.number;
 		if (!this.type.equals(other.type)) return other.type.order - this.type.order;
 		if (this.fromMethod != other.fromMethod) return (!fromMethod) ? 1 : -1;
-		return this.description.compareTo(other.description);
+		return this.methodOrClassName.compareTo(other.methodOrClassName);
 	}
 
 }
