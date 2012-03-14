@@ -11,23 +11,24 @@ public class ClassData {
 		this.clazz = clazz;
 	}
 
-	public Class<?> getRawClass() {
-		return clazz;
+	public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
+		return clazz.isAnnotationPresent(annotationClass);
 	}
-
-	 public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
-		 return clazz.isAnnotationPresent(annotationClass);
-	 }
 	
-	 public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
-		 return clazz.getAnnotation(annotationClass);
-	 }
+	public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
+		return clazz.getAnnotation(annotationClass);
+	}
+	
+	public String getSimpleName() {
+		return clazz.getSimpleName();
+	}
 	 
-	 public String getSimpleName() {
-		 return clazz.getSimpleName();
-	 }
-	 
-	 public Method[] getMethods() {
-		 return clazz.getMethods();
-	 }
+	public MethodData[] getMethods() {
+		Method[] rawResults = clazz.getMethods();
+		MethodData[] result = new MethodData[rawResults.length];
+		for (int i = 0; i < rawResults.length; i++) {
+			result[i] = new MethodData(rawResults[i]);
+		}
+		return result ;
+	}
 }
