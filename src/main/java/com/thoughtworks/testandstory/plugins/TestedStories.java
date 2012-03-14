@@ -32,11 +32,10 @@ public class TestedStories {
 		List<TestInformation> results = new ArrayList<TestInformation>();
 		
 		for (ClassData classData : testClasses) {
-			Class<?> testClass = classData.getRawClass(); 
-			if (testClass.isAnnotationPresent(Story.class) && isMeetNumber(number, testClass.getAnnotation(Story.class))) {
-				results.add(getStoryInformation(testClass.getAnnotation(Story.class), testClass.getSimpleName(), false));
+			if (classData.isAnnotationPresent(Story.class) && isMeetNumber(number, classData.getAnnotation(Story.class))) {
+				results.add(getStoryInformation(classData.getAnnotation(Story.class), classData.getSimpleName(), false));
 			} else {
-				collectFromOneClass(results, testClass, number);
+				collectFromOneClass(results, classData, number);
 			}
 		}
 		
@@ -48,8 +47,8 @@ public class TestedStories {
 		return new TestInformation(annotation.value(), annotation.type(), description, fromMethod);
 	}
 
-	private void collectFromOneClass(List<TestInformation> results, Class<?> testClass, int number) {
-		for(Method m : testClass.getMethods()) {
+	private void collectFromOneClass(List<TestInformation> results, ClassData classData, int number) {
+		for(Method m : classData.getMethods()) {
 			if (isLabeledByStory(m) && isMeetNumber(number, m.getAnnotation(Story.class))) {;
 				results.add(getStoryInformation(m.getAnnotation(Story.class), m.getName(), true));
 			}
