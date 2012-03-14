@@ -92,6 +92,9 @@ public class TestedStoriesTest {
 		String directory = "./fixtures";
 		List<TestInformation> infos = TestedStories.find(directory).get(731).all();
 		assertEquals(3, infos.size());
+		
+		infos = TestedStories.find(directory).get(8413).all();
+		assertEquals(1, infos.size());
 	}
 	
 	@Test
