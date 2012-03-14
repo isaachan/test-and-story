@@ -1,6 +1,5 @@
 package com.thoughtworks.testandstory.plugins;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -48,7 +47,7 @@ public class TestedStories {
 	}
 
 	private void collectFromOneClass(List<TestInformation> results, ClassData classData, int number) {
-		for(Method m : classData.getMethods()) {
+		for(MethodData m : classData.getMethods()) {
 			if (isLabeledByStory(m) && isMeetNumber(number, m.getAnnotation(Story.class))) {;
 				results.add(getStoryInformation(m.getAnnotation(Story.class), m.getName(), true));
 			}
@@ -60,7 +59,7 @@ public class TestedStories {
 		return annotation.value() == number;
 	}
 
-	private boolean isLabeledByStory(Method m) {
+	private boolean isLabeledByStory(MethodData m) {
 		return m.isAnnotationPresent(Story.class) && m.isAnnotationPresent(Test.class);
 	}
 
