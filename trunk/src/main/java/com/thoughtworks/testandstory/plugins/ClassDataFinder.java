@@ -35,7 +35,7 @@ public class ClassDataFinder {
 		for (File sub : classesDirectory.listFiles()) {
 			if (sub.isFile()) {
 				if (!isJavaClassFile(sub)) continue;
-				loadClass(new File(rootDirectory), classCanonicalName(rootDirectory, sub), results);
+				loadClass(sub, results);
 			} else {
 				find(rootDirectory, sub.getAbsolutePath(), results);
 			}
@@ -54,11 +54,9 @@ public class ClassDataFinder {
 		return file.getName().endsWith(".class");
 	}
 
-	private static void loadClass(File classesDirectory, String classPackageName, List<ClassData> results) {
+	private static void loadClass(File classFile, List<ClassData> results) {
 		try {
-			URL[] urls = new URL[] {classesDirectory.toURI().toURL()};
-			URLClassLoader classLoader = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
-			results.add(new ClassData(classLoader.loadClass(classPackageName)));
+			results.add(new ClassData(classFile));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

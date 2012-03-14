@@ -1,26 +1,38 @@
 package com.thoughtworks.testandstory.plugins;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 
-public class MethodData {
+import javassist.ClassPool;
+import javassist.bytecode.AnnotationsAttribute;
+import javassist.bytecode.MethodInfo;
 
-	private final Method method;
+class MethodData {
 
-	public MethodData(Method method) {
-		this.method = method;
+	private final MethodInfo methodInfo;
+
+	public MethodData(MethodInfo methodInfo) {
+		this.methodInfo = methodInfo;
 	}
 	
 	public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
-		return method.getAnnotation(annotationClass);
+		try {
+			AnnotationsAttribute attribute = (AnnotationsAttribute) methodInfo.getAttribute(AnnotationsAttribute.visibleTag);
+			return (A) attribute.getAnnotation(Story.class.getName()).toAnnotationType(Thread.currentThread().getContextClassLoader(), ClassPool.getDefault());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public String getName() {
-		return method.getName();
+		return methodInfo.getName();
 	}
 	
 	public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
-		return method.isAnnotationPresent(annotationClass);
+		AnnotationsAttribute attribute = (AnnotationsAttribute) methodInfo.getAttribute(AnnotationsAttribute.visibleTag);
+		if (attribute == null) return false;
+		
+		return null != attribute.getAnnotation(Story.class.getName());
 	}
+	
 	
 }
