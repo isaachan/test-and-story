@@ -22,6 +22,21 @@
       		<artifactId>junit</artifactId>
       		<version>4.5</version>
     	</dependency>
+    	
+    	<!-- 
+    	<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-commons</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+		-->
+    	
+    	<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+		            
   	</dependencies>
     
   	<build>
@@ -34,7 +49,7 @@
         			<source>1.6</source>
       			</configuration>
     		</plugin>
-
+<!--  
       		<plugin>
 		        <groupId>com.thoughtworks.testandstory.plugins</groupId>
 		        <artifactId>test-and-story-plugin</artifactId>
@@ -42,12 +57,11 @@
 		        <goals>criteria</goals>
 		        <configuration>
 			        <testDirectries>
-						<!--<param>/home/hk-ubuntu/workspace/myproj/bin</param> -->
 						<param>/home/hk-ubuntu/Code/test-and-story/target/test-classes</param> 
 					</testDirectries>
 				</configuration>
       		</plugin>
-
+-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>

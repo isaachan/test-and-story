@@ -18,7 +18,7 @@ public class TestedStoriesTest {
 	@Test
 	@Story(732)
 	public void should_get_information_from_method_labeled_by_story() {
-		List<TestInformation> infos = new TestedStories(TestedStoriesTest.class).get().all();
+		List<TestInformation> infos = new TestedStories(new ClassData(TestedStoriesTest.class)).get().all();
 		TestInformation info = infos.get(0);
 		
 		assertEquals(732, info.number());
@@ -30,9 +30,9 @@ public class TestedStoriesTest {
 	@Test
 	@Story(731)
 	public void should_get_information_from_methods_labeled_by_story() {
-		Collection<Class<?>> testClasses = new ArrayList<Class<?>>() {{
-			add(TestedStoriesTest.class);
-			add(AnotherTestCase.class);
+		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
+			add(new ClassData(TestedStoriesTest.class));
+			add(new ClassData(AnotherTestCase.class));
 		}};
 		List<TestInformation> infos = new TestedStories(testClasses).get().all();
 		assertEquals(3, infos.size());
@@ -41,9 +41,9 @@ public class TestedStoriesTest {
 	@SuppressWarnings("serial")
 	@Test
 	public void should_get_information_by_specified_story_number() {
-		Collection<Class<?>> testClasses = new ArrayList<Class<?>>() {{
-			add(TestedStoriesTest.class);
-			add(AnotherTestCase.class);
+		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
+			add(new ClassData(TestedStoriesTest.class));
+			add(new ClassData(AnotherTestCase.class));
 		}};
 		List<TestInformation> infos = new TestedStories(testClasses).get(731).all();
 		
@@ -53,10 +53,10 @@ public class TestedStoriesTest {
 	@SuppressWarnings("serial")
 	@Test
 	public void should_get_test_class_information_by_specified_story_number() {
-		Collection<Class<?>> testClasses = new ArrayList<Class<?>>() {{
-			add(TestedStoriesTest.class);
-			add(AnotherTestCase.class);
-			add(FunctionalTestCase.class);
+		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
+			add(new ClassData(TestedStoriesTest.class));
+			add(new ClassData(AnotherTestCase.class));
+			add(new ClassData(FunctionalTestCase.class));
 		}};
 		
 		List<TestInformation> infos = new TestedStories(testClasses).get(731).all();
@@ -66,14 +66,14 @@ public class TestedStoriesTest {
 	
 	@Test
 	public void should_get_type_of_test() {
-		List<TestInformation> infos = new TestedStories(IntegrationTestCase.class).get().all();
+		List<TestInformation> infos = new TestedStories(new ClassData(IntegrationTestCase.class)).get().all();
 		assertEquals(732, infos.get(0).number());
 		assertEquals(StoryType.INTEGRATION, infos.get(0).type());
 	}
 	
 	@Test
 	public void should_get_labeled_testcase_class() {
-		List<TestInformation> infos = new TestedStories(FunctionalTestCase.class).get().all();
+		List<TestInformation> infos = new TestedStories(new ClassData(FunctionalTestCase.class)).get().all();
 		TestInformation info = infos.get(0);
 		assertEquals(731, info.number());
 		assertEquals(StoryType.FUNCTIONAL, info.type());
@@ -83,7 +83,7 @@ public class TestedStoriesTest {
 	
 	@Test
 	public void should_get_empty_list_if_no_story_labeled_tests_found() {
-		List<TestInformation> infos = new TestedStories(FunctionalTestCase.class).get(12345).all();
+		List<TestInformation> infos = new TestedStories(new ClassData(FunctionalTestCase.class)).get(12345).all();
 		assertEquals(0, infos.size());
 	}
 	
@@ -103,7 +103,7 @@ public class TestedStoriesTest {
 	
 	@Story(value=731, type=StoryType.FUNCTIONAL)
 	public class FunctionalTestCase {}
-	
+
 	public class IntegrationTestCase {
 		@Test
 		@Story(value=732, type=StoryType.INTEGRATION)
