@@ -1,8 +1,6 @@
 package com.thoughtworks.testandstory.plugins;
 
 import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +38,6 @@ public class ClassDataFinder {
 				find(rootDirectory, sub.getAbsolutePath(), results);
 			}
 		}
-	}
-
-	private static String classCanonicalName(String rootDirectory, File classFile) {
-		return classFile.getAbsolutePath()
-		          .substring(new File(rootDirectory).getAbsolutePath().length() + 1)
-		          .replace("\\", ".")
-		          .replace("/", ".")
-		          .replace(".class", "");
 	}
 
 	private static boolean isJavaClassFile(File file) {

@@ -46,7 +46,7 @@ public class Reporter {
 
 	public void generateReport(TestInformations infos, File report) {
 		try {
-			FileWriter writer = new FileWriter("report.html");
+			FileWriter writer = new FileWriter(report);
 			writer.write(report(infos));
 			writer.close();
 		} catch (IOException e) {
