@@ -8,6 +8,7 @@ import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * @goal criteria
+ * @phase integration
  */
 public class TestAndStoryMojo extends AbstractMojo {
 
