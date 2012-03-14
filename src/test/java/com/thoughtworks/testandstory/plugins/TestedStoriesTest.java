@@ -18,7 +18,7 @@ public class TestedStoriesTest {
 	@Test
 	@Story(732)
 	public void should_get_information_from_method_labeled_by_story() {
-		List<TestInformation> infos = new TestedStories(new ClassData(TestedStoriesTest.class)).get().all();
+		List<TestInformation> infos = new TestedStories(new RefelectionClassData(TestedStoriesTest.class)).get().all();
 		TestInformation info = infos.get(0);
 		
 		assertEquals(732, info.number());
@@ -31,8 +31,8 @@ public class TestedStoriesTest {
 	@Story(731)
 	public void should_get_information_from_methods_labeled_by_story() {
 		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
-			add(new ClassData(TestedStoriesTest.class));
-			add(new ClassData(AnotherTestCase.class));
+			add(new RefelectionClassData(TestedStoriesTest.class));
+			add(new RefelectionClassData(AnotherTestCase.class));
 		}};
 		List<TestInformation> infos = new TestedStories(testClasses).get().all();
 		assertEquals(3, infos.size());
@@ -42,8 +42,8 @@ public class TestedStoriesTest {
 	@Test
 	public void should_get_information_by_specified_story_number() {
 		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
-			add(new ClassData(TestedStoriesTest.class));
-			add(new ClassData(AnotherTestCase.class));
+			add(new RefelectionClassData(TestedStoriesTest.class));
+			add(new RefelectionClassData(AnotherTestCase.class));
 		}};
 		List<TestInformation> infos = new TestedStories(testClasses).get(731).all();
 		
@@ -54,9 +54,9 @@ public class TestedStoriesTest {
 	@Test
 	public void should_get_test_class_information_by_specified_story_number() {
 		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
-			add(new ClassData(TestedStoriesTest.class));
-			add(new ClassData(AnotherTestCase.class));
-			add(new ClassData(FunctionalTestCase.class));
+			add(new RefelectionClassData(TestedStoriesTest.class));
+			add(new RefelectionClassData(AnotherTestCase.class));
+			add(new RefelectionClassData(FunctionalTestCase.class));
 		}};
 		
 		List<TestInformation> infos = new TestedStories(testClasses).get(731).all();
@@ -66,14 +66,14 @@ public class TestedStoriesTest {
 	
 	@Test
 	public void should_get_type_of_test() {
-		List<TestInformation> infos = new TestedStories(new ClassData(IntegrationTestCase.class)).get().all();
+		List<TestInformation> infos = new TestedStories(new RefelectionClassData(IntegrationTestCase.class)).get().all();
 		assertEquals(732, infos.get(0).number());
 		assertEquals(StoryType.INTEGRATION, infos.get(0).type());
 	}
 	
 	@Test
 	public void should_get_labeled_testcase_class() {
-		List<TestInformation> infos = new TestedStories(new ClassData(FunctionalTestCase.class)).get().all();
+		List<TestInformation> infos = new TestedStories(new RefelectionClassData(FunctionalTestCase.class)).get().all();
 		TestInformation info = infos.get(0);
 		assertEquals(731, info.number());
 		assertEquals(StoryType.FUNCTIONAL, info.type());
@@ -83,7 +83,7 @@ public class TestedStoriesTest {
 	
 	@Test
 	public void should_get_empty_list_if_no_story_labeled_tests_found() {
-		List<TestInformation> infos = new TestedStories(new ClassData(FunctionalTestCase.class)).get(12345).all();
+		List<TestInformation> infos = new TestedStories(new RefelectionClassData(FunctionalTestCase.class)).get(12345).all();
 		assertEquals(0, infos.size());
 	}
 	
