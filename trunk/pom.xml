@@ -49,19 +49,27 @@
         			<source>1.6</source>
       			</configuration>
     		</plugin>
-<!--  
+  <!-- 
       		<plugin>
 		        <groupId>com.thoughtworks.testandstory.plugins</groupId>
 		        <artifactId>test-and-story-plugin</artifactId>
 		        <version>1.0-SNAPSHOT</version>
-		        <goals>criteria</goals>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>criteria</goal>
+						</goals>		
+					</execution>
+				</executions>
+		        
 		        <configuration>
 			        <testDirectries>
-						<param>/home/hk-ubuntu/Code/test-and-story/target/test-classes</param> 
+						<param>C:/Users/hankai/Code/test-and-story/target/test-classes</param> 
 					</testDirectries>
 				</configuration>
       		</plugin>
--->
+ -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
