@@ -32,7 +32,7 @@
 <h1>Story criterias covered by tests</h1>
 
 <div>
-	$stories$
+	#stories#
 </div>
 
 </body>

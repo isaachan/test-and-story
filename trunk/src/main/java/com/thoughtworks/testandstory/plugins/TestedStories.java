@@ -43,7 +43,7 @@ public class TestedStories {
 	}
 
 	private TestInformation getStoryInformation(Story annotation, String description, boolean fromMethod) {
-		return new TestInformation(annotation.value(), annotation.type(), description, fromMethod);
+		return new TestInformation(annotation.value(), description, fromMethod);
 	}
 
 	private void collectFromOneClass(List<TestInformation> results, ClassData classData, int number) {

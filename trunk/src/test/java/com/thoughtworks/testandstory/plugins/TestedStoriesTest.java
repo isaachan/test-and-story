@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.thoughtworks.testandstory.plugins.Story;
-import com.thoughtworks.testandstory.plugins.StoryType;
 import com.thoughtworks.testandstory.plugins.TestInformation;
 import com.thoughtworks.testandstory.plugins.TestedStories;
 
@@ -68,7 +67,6 @@ public class TestedStoriesTest {
 	public void should_get_type_of_test() {
 		List<TestInformation> infos = new TestedStories(new RefelectionClassData(IntegrationTestCase.class)).get().all();
 		assertEquals(732, infos.get(0).number());
-		assertEquals(StoryType.INTEGRATION, infos.get(0).type());
 	}
 	
 	@Test
@@ -76,7 +74,6 @@ public class TestedStoriesTest {
 		List<TestInformation> infos = new TestedStories(new RefelectionClassData(FunctionalTestCase.class)).get().all();
 		TestInformation info = infos.get(0);
 		assertEquals(731, info.number());
-		assertEquals(StoryType.FUNCTIONAL, info.type());
 		assertEquals("FunctionalTestCase", info.getMethodOrClassName());
 		assertFalse(info.fromMethod());
 	}
@@ -104,12 +101,12 @@ public class TestedStoriesTest {
 	@Story(732)
 	public void test_that_only_labeled_story() {}
 	
-	@Story(value=731, type=StoryType.FUNCTIONAL)
+	@Story(value=731)
 	public class FunctionalTestCase {}
 
 	public class IntegrationTestCase {
 		@Test
-		@Story(value=732, type=StoryType.INTEGRATION)
+		@Story(value=732)
 		public void ussOfHomeIsMandatory() {}
 	}
 	

@@ -13,13 +13,18 @@ public class ST {
 	}
 
 	public void add(String toReplaced, Object replacement) {
-		replacements.put(toReplaced, replacement.toString());
+		String replacementString = replacement.toString().replace("$", "\\$");
+		replacements.put(toReplaced, replacementString);
 	}
 
 	public String render() {
 		String result = new String(template);
 		for(String toReplaced : replacements.keySet()) {
-			result = result.replaceAll(String.format("\\$%s\\$", toReplaced), replacements.get(toReplaced));
+			try {
+			result = result.replaceAll(String.format("#%s#", toReplaced), replacements.get(toReplaced));
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return result;
 	}
