@@ -17,11 +17,15 @@ public class ClassData {
 	private ClassFile classFile;
 	private AnnotationsAttribute attribute;
 
+	protected ClassData() { }
+	
 	public ClassData(File classFilePath) {
 		try {
 			this.classFile = new ClassFile(new DataInputStream(new FileInputStream(classFilePath)));
 			this.attribute = (AnnotationsAttribute) classFile.getAttribute(AnnotationsAttribute.visibleTag);
-		} catch (Exception e) {	}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		
 	}
 
