@@ -8,7 +8,6 @@ class RefelectionClassData extends ClassData {
 	private Class<?> clazz;
 
 	public RefelectionClassData(Class<?> clazz) {
-		super(null);
 		this.clazz = clazz;
 	}
 
