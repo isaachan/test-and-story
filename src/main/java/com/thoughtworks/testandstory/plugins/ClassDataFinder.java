@@ -4,7 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javassist.ClassPool;
+
 public class ClassDataFinder {
+
+	private static ClassPool pool = ClassPool.getDefault();
 	
 	public static ArrayList<ClassData> findClassDatas(String... directories) {
 		ArrayList<ClassData> classes = new ArrayList<ClassData>();
@@ -46,7 +50,7 @@ public class ClassDataFinder {
 
 	private static void loadClass(File classFile, List<ClassData> results) {
 		try {
-			results.add(new ClassData(classFile));
+			results.add(new ClassData(classFile, pool));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

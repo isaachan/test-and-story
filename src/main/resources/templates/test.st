@@ -1,1 +1,1 @@
-<div class="test $type$"><div>$description$</div></div>
+<div class="test"><div>#description#</div></div>

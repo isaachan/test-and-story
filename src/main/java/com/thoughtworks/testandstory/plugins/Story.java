@@ -7,6 +7,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Story {
 	
 	int value();
-	StoryType type() default StoryType.UNIT;
 	
 }

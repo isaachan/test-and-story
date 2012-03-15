@@ -39,7 +39,6 @@ public class Reporter {
 	}
 
 	private String reportForTest(TestInformation info) {
-		testTemplate.add("type", info.type().toString().toLowerCase());
 		testTemplate.add("description", info.getMethodOrClassName());
 		return testTemplate.render();
 	}
