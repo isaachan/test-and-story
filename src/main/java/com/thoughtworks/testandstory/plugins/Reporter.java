@@ -46,6 +46,7 @@ public class Reporter {
 
 	public void generateReport(TestInformations infos, File report) {
 		try {
+			if (!report.exists()) report.createNewFile();
 			FileWriter writer = new FileWriter(report);
 			writer.write(report(infos));
 			writer.close();
