@@ -11,6 +11,8 @@ public class ClassDataFinder {
 	private static ClassPool pool = ClassPool.getDefault();
 	
 	public static ArrayList<ClassData> findClassDatas(String... directories) {
+	    if (directories == null) return new ArrayList<ClassData>();
+	    
 		ArrayList<ClassData> classes = new ArrayList<ClassData>();
 		for(String dir : directories) {
 			classes.addAll(findClasses(dir));
