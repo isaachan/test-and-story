@@ -37,6 +37,8 @@ public class ClassDataFinder {
 	
 	private static void find(String rootDirectory, String currentDirectory, List<ClassData> results) {
 		File classesDirectory = new File(currentDirectory);
+		if (!classesDirectory.exists()) return;
+		
 		for (File sub : classesDirectory.listFiles()) {
 			if (sub.isFile()) {
 				if (!isJavaClassFile(sub)) continue;
