@@ -15,6 +15,7 @@ public class ClassDataFinder {
 	    
 		ArrayList<ClassData> classes = new ArrayList<ClassData>();
 		for(String dir : directories) {
+		    if (dir == null) continue;
 			classes.addAll(findClasses(dir));
 		}
 		return classes;
