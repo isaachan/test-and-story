@@ -96,7 +96,9 @@ public class TestedStoriesTest {
 	
 	@Test
 	public void should_handler_null_distories() {
-	    assertEquals(0, TestedStories.find((String[]) null).get().all().size());
+        assertEquals(0, TestedStories.find((String[]) null).get().all().size());
+        
+        assertEquals(0, TestedStories.find(new String[] {null, null}).get().all().size());
 	}
 	
 	@Test
