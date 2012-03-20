@@ -26,8 +26,8 @@ public class TestAndStoryMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		if (report == null) { report = new File("report.html"); }
 		
-		TestInformations testInformations = TestedStories.find(testDirectries).get();
-		new Reporter().generateReport(testInformations, report);
+		StoryData storyData = TestedStories.find(testDirectries).get();
+		new Reporter().generateReport(storyData.testInformations, report);
 	}
 
 }
