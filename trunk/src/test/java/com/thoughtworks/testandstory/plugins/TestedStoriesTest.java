@@ -17,6 +17,7 @@ public class TestedStoriesTest {
 
 	@Story(100)
 	@Test
+	@SuppressWarnings("serial")
 	public void should_get_storydatas_from_one_class_labeled_by_story() {
 		final RefelectionClassData classData = new RefelectionClassData(TestedStoriesTest.class);
 		List<StoryData> storyDatas = new TestedStories(new ArrayList<ClassData>() {{add(classData);}}, story_url_template).getStoryDatas(100);
