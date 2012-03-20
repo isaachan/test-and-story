@@ -1,6 +1,8 @@
 package com.thoughtworks.testandstory.plugins;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -14,17 +16,16 @@ public class TestedStories {
 		this.storyUrlTemplate = storyUrlTemplate;
 	}
 	
-	public StoryDatas getStoryDatas(int storyNumber) {
-		StoryDatas storyDatas = new StoryDatas(null);
-		
+	public List<StoryData> getStoryDatas(int storyNumber) {
+		List<StoryData> storyDatas = new ArrayList<StoryData>();
 		for (ClassData classData : testClasses) {
-			collectFromOneClass(storyDatas, classData, storyNumber);
+			StoryData storyData = collectFromOneClass(classData, storyNumber);
+			if (storyData.findTest()) storyDatas.add(storyData);
 		}
-		
 		return storyDatas;
 	}
 
-	private void collectFromOneClass(StoryDatas storyDatas, ClassData classData, int storyNumber) {
+	private StoryData collectFromOneClass(ClassData classData, int storyNumber) {
 		StoryData storyData = new StoryData();
 		storyData.setNumber(storyNumber);
 		storyData.setLink(String.format(storyUrlTemplate, storyNumber));
@@ -33,7 +34,7 @@ public class TestedStories {
 				storyData.addTest(new TestData(m.getName()));
 			}
 		}
-		if (storyData.findTest()) storyDatas.add(storyData);
+		return storyData;
 	}
 
 	private boolean isMeetNumber(int number, Story annotation) {
@@ -49,7 +50,7 @@ public class TestedStories {
 		return new TestedStories(ClassDataFinder.findClassDatas(directories), storyUrlTemplate);
 	}
 
-	public StoryDatas getStoryDatas() {
+	public List<StoryData> getStoryDatas() {
 		return getStoryDatas(-1);
 	}
 	

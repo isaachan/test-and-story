@@ -5,17 +5,7 @@ import java.util.List;
 
 public class StoryDatas {
 
-	public final TestInformations testInformations;
-	private List<StoryData> storyDatas = new ArrayList<StoryData>();
-
-	// This constructor will be removed once refactoring done.
-	public StoryDatas(TestInformations testInformations) {
-		this.testInformations = testInformations;
-	}
-
-	public StoryData get(int index) {
-		return storyDatas.get(0);
-	}
+	public final List<StoryData> storyDatas = new ArrayList<StoryData>();
 
 	public void add(StoryData storyData) {
 		storyDatas.add(storyData);

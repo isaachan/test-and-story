@@ -1,6 +1,7 @@
 package com.thoughtworks.testandstory.plugins;
 
 import java.io.File;
+import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -31,8 +32,8 @@ public class TestAndStoryMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		if (report == null) { report = new File("report.html"); }
 		
-		StoryDatas storyData = TestedStories.find(testDirectries, storyUrlTemplate).getStoryDatas();
-		new Reporter().generateReport(storyData.testInformations, report);
+		List<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate).getStoryDatas();
+		new Reporter().generateReport(storyData, report);
 	}
 
 }

@@ -2,9 +2,7 @@ package com.thoughtworks.testandstory.plugins;
 
 import java.lang.annotation.Annotation;
 
-import javassist.ClassPath;
 import javassist.ClassPool;
-import javassist.NotFoundException;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.annotation.NoSuchClassError;
 
