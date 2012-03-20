@@ -9,6 +9,11 @@ public class StoryData {
 	private int number;
 	private String link;
 
+	public StoryData(int number, String link) {
+		this.number = number;
+		this.link = link;
+	}
+
 	public int getNumber() {
 		return number;
 	}
@@ -27,14 +32,6 @@ public class StoryData {
 
 	public boolean findTest() {
 		return !tests.isEmpty();
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
 	}
 
 }

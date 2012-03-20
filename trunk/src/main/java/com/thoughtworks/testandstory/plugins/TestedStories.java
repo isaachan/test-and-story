@@ -1,8 +1,8 @@
 package com.thoughtworks.testandstory.plugins;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -16,25 +16,25 @@ public class TestedStories {
 		this.storyUrlTemplate = storyUrlTemplate;
 	}
 	
-	public List<StoryData> getStoryDatas(int storyNumber) {
-		List<StoryData> storyDatas = new ArrayList<StoryData>();
+	public Collection<StoryData> getStoryDatas(int storyNumber) {
+		Map<Integer, StoryData> storyDatas = new HashMap<Integer, StoryData>();
 		for (ClassData classData : testClasses) {
-			StoryData storyData = collectFromOneClass(classData, storyNumber);
-			if (storyData.findTest()) storyDatas.add(storyData);
+			collectTestFromClass(storyDatas, classData, storyNumber);
 		}
-		return storyDatas;
+		return storyDatas.values();
 	}
 
-	private StoryData collectFromOneClass(ClassData classData, int storyNumber) {
-		StoryData storyData = new StoryData();
-		storyData.setNumber(storyNumber);
-		storyData.setLink(String.format(storyUrlTemplate, storyNumber));
+	private void collectTestFromClass(Map<Integer, StoryData> storyDatas, ClassData classData, int storyNumber) {
 		for(MethodData m : classData.getMethods()) {
-			if (isLabeledByStory(m) && isMeetNumber(storyNumber, m.getAnnotation(Story.class))) {;
-				storyData.addTest(new TestData(m.getName()));
+			if (isLabeledByStory(m) && isMeetNumber(storyNumber, m.getAnnotation(Story.class))) {
+				int number = m.getAnnotation(Story.class).value();
+				if (!storyDatas.containsKey(number)) {
+					StoryData storyData = new StoryData(number, String.format(storyUrlTemplate, number));
+					storyDatas.put(number, storyData);
+				}
+				storyDatas.get(number).addTest(new TestData(m.getName()));
 			}
 		}
-		return storyData;
 	}
 
 	private boolean isMeetNumber(int number, Story annotation) {
@@ -50,7 +50,7 @@ public class TestedStories {
 		return new TestedStories(ClassDataFinder.findClassDatas(directories), storyUrlTemplate);
 	}
 
-	public List<StoryData> getStoryDatas() {
+	public Collection<StoryData> getStoryDatas() {
 		return getStoryDatas(-1);
 	}
 	
