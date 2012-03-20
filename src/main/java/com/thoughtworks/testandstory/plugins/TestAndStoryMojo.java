@@ -22,11 +22,16 @@ public class TestAndStoryMojo extends AbstractMojo {
 	 */
 	private File report;
 	
+	/**
+	 * @parameter storyUrlTemplate
+	 */
+	private String storyUrlTemplate;
+	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		if (report == null) { report = new File("report.html"); }
 		
-		StoryData storyData = TestedStories.find(testDirectries).get();
+		StoryDatas storyData = TestedStories.find(testDirectries, storyUrlTemplate).getStoryDatas();
 		new Reporter().generateReport(storyData.testInformations, report);
 	}
 

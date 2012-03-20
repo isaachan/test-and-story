@@ -1,52 +1,39 @@
 package com.thoughtworks.testandstory.plugins;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import org.junit.Test;
 
 public class TestedStories {
 
 	private final Collection<ClassData> testClasses;
+	private final String storyUrlTemplate;
 
-	public TestedStories(Collection<ClassData> testClasses) {
+	public TestedStories(Collection<ClassData> testClasses, String storyUrlTemplate) {
 		this.testClasses = testClasses;
+		this.storyUrlTemplate = storyUrlTemplate;
 	}
 	
-	@SuppressWarnings("serial")
-	public TestedStories(final ClassData testClass) {
-		this.testClasses = new ArrayList<ClassData>() {{
-			add(testClass);
-		}};
-	}
-	
-	public StoryData get() {
-		return new StoryData(get(-1).testInformations);
-	}
-
-	public StoryData get(int number) {
-		List<TestInformation> results = new ArrayList<TestInformation>();
+	public StoryDatas getStoryDatas(int storyNumber) {
+		StoryDatas storyDatas = new StoryDatas(null);
 		
 		for (ClassData classData : testClasses) {
-			collectFromOneClass(results, classData, number);
+			collectFromOneClass(storyDatas, classData, storyNumber);
 		}
 		
-		Collections.sort(results);
-		return new StoryData(new TestInformations(results));
+		return storyDatas;
 	}
 
-	private TestInformation getStoryInformation(Story annotation, String description, boolean fromMethod) {
-		return new TestInformation(annotation.value(), description, fromMethod);
-	}
-
-	private void collectFromOneClass(List<TestInformation> results, ClassData classData, int number) {
+	private void collectFromOneClass(StoryDatas storyDatas, ClassData classData, int storyNumber) {
+		StoryData storyData = new StoryData();
+		storyData.setNumber(storyNumber);
+		storyData.setLink(String.format(storyUrlTemplate, storyNumber));
 		for(MethodData m : classData.getMethods()) {
-			if (isLabeledByStory(m) && isMeetNumber(number, m.getAnnotation(Story.class))) {;
-				results.add(getStoryInformation(m.getAnnotation(Story.class), m.getName(), true));
+			if (isLabeledByStory(m) && isMeetNumber(storyNumber, m.getAnnotation(Story.class))) {;
+				storyData.addTest(new TestData(m.getName()));
 			}
 		}
+		if (storyData.findTest()) storyDatas.add(storyData);
 	}
 
 	private boolean isMeetNumber(int number, Story annotation) {
@@ -58,8 +45,12 @@ public class TestedStories {
 		return m.isAnnotationPresent(Story.class) && m.isAnnotationPresent(Test.class);
 	}
 
-	public static TestedStories find(String...directories) {
-		return new TestedStories(ClassDataFinder.findClassDatas(directories));
+	public static TestedStories find(String[] directories, String storyUrlTemplate) {
+		return new TestedStories(ClassDataFinder.findClassDatas(directories), storyUrlTemplate);
+	}
+
+	public StoryDatas getStoryDatas() {
+		return getStoryDatas(-1);
 	}
 	
 }
