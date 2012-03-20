@@ -8,8 +8,6 @@ import javassist.ClassPool;
 
 public class ClassDataFinder {
 
-	private static ClassPool pool = ClassPool.getDefault();
-	
 	public static ArrayList<ClassData> findClassDatas(String[] directories) {
 	    if (directories == null) return new ArrayList<ClassData>();
 	    
@@ -55,7 +53,7 @@ public class ClassDataFinder {
 
 	private static void loadClass(File classFile, List<ClassData> results) {
 		try {
-			results.add(new ClassData(classFile, pool));
+			results.add(new ClassData(classFile));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
