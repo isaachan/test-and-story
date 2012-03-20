@@ -4,31 +4,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javassist.ClassPool;
-
 public class ClassDataFinder {
 
-	public static ArrayList<ClassData> findClassDatas(String[] directories) {
+	public static List<ClassData> findClassDatas(String[] directories) {
 	    if (directories == null) return new ArrayList<ClassData>();
 	    
-		ArrayList<ClassData> classes = new ArrayList<ClassData>();
+		List<ClassData> classes = new ArrayList<ClassData>();
 		for(String dir : directories) {
 		    if (dir == null) continue;
 			classes.addAll(findClasses(dir));
 		}
 		return classes;
 	}
-	
-	public static TestedStories find(String[] directories, String storyUrlTemplate) {
-		ArrayList<ClassData> classes = new ArrayList<ClassData>();
-		for(String dir : directories) {
-			classes.addAll(findClasses(dir));
-		}
-		return new TestedStories(classes, storyUrlTemplate);
-	}
 
-	public static ArrayList<ClassData> findClasses(String directory) {
-		ArrayList<ClassData> results = new ArrayList<ClassData>();
+	private static List<ClassData> findClasses(String directory) {
+		List<ClassData> results = new ArrayList<ClassData>();
 		find(directory, directory, results);
 		return results;
 	}
@@ -58,6 +48,5 @@ public class ClassDataFinder {
 			e.printStackTrace();
 		}
 	}
-
 	
 }

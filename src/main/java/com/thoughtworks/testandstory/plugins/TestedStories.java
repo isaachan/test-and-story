@@ -10,10 +10,12 @@ public class TestedStories {
 
 	private final Collection<ClassData> testClasses;
 	private final String storyUrlTemplate;
+    private final PageReader pageReader;
 
-	public TestedStories(Collection<ClassData> testClasses, String storyUrlTemplate) {
+	public TestedStories(Collection<ClassData> testClasses, String storyUrlTemplate, PageReader pageReader) {
 		this.testClasses = testClasses;
 		this.storyUrlTemplate = storyUrlTemplate;
+        this.pageReader = pageReader;
 	}
 	
 	public Collection<StoryData> getStoryDatas(int storyNumber) {
@@ -29,7 +31,7 @@ public class TestedStories {
 			if (isLabeledByStory(m) && isMeetNumber(storyNumber, m.getAnnotation(Story.class))) {
 				int number = m.getAnnotation(Story.class).value();
 				if (!storyDatas.containsKey(number)) {
-					StoryData storyData = new StoryData(number, String.format(storyUrlTemplate, number));
+					StoryData storyData = new StoryData(number, String.format(storyUrlTemplate, number), this.pageReader);
 					storyDatas.put(number, storyData);
 				}
 				storyDatas.get(number).addTest(new TestData(m.getName()));
@@ -46,8 +48,8 @@ public class TestedStories {
 		return m.isAnnotationPresent(Story.class) && m.isAnnotationPresent(Test.class);
 	}
 
-	public static TestedStories find(String[] directories, String storyUrlTemplate) {
-		return new TestedStories(ClassDataFinder.findClassDatas(directories), storyUrlTemplate);
+	public static TestedStories find(String[] directories, String storyUrlTemplate, PageReader pageReader) {
+		return new TestedStories(ClassDataFinder.findClassDatas(directories), storyUrlTemplate, pageReader);
 	}
 
 	public Collection<StoryData> getStoryDatas() {
