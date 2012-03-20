@@ -5,13 +5,15 @@ import java.util.List;
 
 public class StoryData {
 
-	private ArrayList<TestData> tests = new ArrayList<TestData>();
-	private int number;
-	private String link;
+	private final ArrayList<TestData> tests = new ArrayList<TestData>();
+	private final int number;
+	private final String link;
+    private final String summary;
 
-	public StoryData(int number, String link) {
+	public StoryData(int number, String link, PageReader pageReader) {
 		this.number = number;
 		this.link = link;
+        this.summary = pageReader.getStorySummary(String.format("%s?os_username=%s&os_password=%s", link, "u348135", "12345ssdlh"));
 	}
 
 	public int getNumber() {
@@ -34,4 +36,7 @@ public class StoryData {
 		return !tests.isEmpty();
 	}
 
+	public String getSummary() {
+	    return summary;
+	}
 }

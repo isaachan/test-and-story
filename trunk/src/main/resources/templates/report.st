@@ -74,7 +74,7 @@
 		for (var i = 0; i < stories.length; i++) {
 			var story = stories[i];
 			
-			var storySummaryElement = $("<div>Story " + story.number + "</div>");
+			var storySummaryElement = $("<div>Story-" + story.number + ", " + story.summary + "</div>");
 			storySummaryElement.addClass("story-summary");
 			storySummaryElement.attr("id", story.number);
 			

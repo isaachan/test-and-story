@@ -31,7 +31,7 @@ public class TestAndStoryMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		if (report == null) { report = new File("report.html"); }
 		
-		Collection<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate).getStoryDatas();
+		Collection<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate, new JiraPageReader()).getStoryDatas();
 		new Reporter().generateReport(storyData, report);
 	}
 
