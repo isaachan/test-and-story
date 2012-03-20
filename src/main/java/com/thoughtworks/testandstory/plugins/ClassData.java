@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 
-import javassist.ClassPool;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;
 import javassist.bytecode.MethodInfo;
@@ -16,7 +15,7 @@ public class ClassData extends MetaData {
 
 	protected ClassData() { }
 	
-	public ClassData(File classFilePath, ClassPool classPool) {
+	protected ClassData(File classFilePath) {
 		try {
 			this.classFile = new ClassFile(new DataInputStream(new FileInputStream(classFilePath)));
 			this.attribute = (AnnotationsAttribute) classFile.getAttribute(AnnotationsAttribute.visibleTag);

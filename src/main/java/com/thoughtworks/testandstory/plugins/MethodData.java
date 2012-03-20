@@ -16,7 +16,6 @@ class MethodData extends MetaData {
 	
 	public String getName() {
 		return methodInfo.getName();
-	}
-	
+	}	
 	
 }
