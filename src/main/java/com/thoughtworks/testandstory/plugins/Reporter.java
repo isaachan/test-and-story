@@ -6,28 +6,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
+import java.util.Collection;
+
+import com.google.gson.Gson;
 
 public class Reporter {
 
 	final ST reportTemplate = new ST(readFileContentAsString("report.st"));
 
-	public String report(List<StoryData> testInformations) {
+	public String report(Collection<StoryData> testInformations) {
 		if (testInformations.isEmpty()) return "";
 		return generateReportForTests(testInformations);
 	}
 
-	private String generateReportForTests(List<StoryData> testInformations) {
-		StringBuffer reportForStories = new StringBuffer();
-//		for (int storyNumber : testInformations.storyNumbers()) {
-//			reportForStories.append(reportForStory(testInformations, storyNumber));
-//		}
-//		
-//		reportTemplate.add("stories", reportForStories.toString());
+	private String generateReportForTests(Collection<StoryData> storyDatas) {
+		Gson gson = new Gson();
+		String json = gson.toJson(storyDatas);
+		reportTemplate.add("stories", json);
 		return reportTemplate.render();
 	}
 
-	public void generateReport(List<StoryData> infos, File report) {
+	public void generateReport(Collection<StoryData> infos, File report) {
 		try {
 			if (!report.exists()) report.createNewFile();
 			FileWriter writer = new FileWriter(report);

@@ -34,13 +34,13 @@
 					  "number" : 731,
 					  "link"   : "http://jira.int.corp.sun/jira/browse/LSP-731",
 					  "summary": "Function test framework",
-					  "tests"  : ['should_abc', 'should_123']
+					  "tests"  : [{name: 'should_abc'}, {name: 'should_123'}]
 		             }, 
 		             {
 					  "number" : 732,
 					  "link"   : "http://jira.int.corp.sun/jira/browse/LSP-732",
 					  "summary": "Motor services for Home",
-					  "tests"  : ['should_xyz', 'should_hhh']          
+					  "tests"  : [{name: 'should_xyz'}, {name: 'should_hhh'}]          
 		             }];
 		**/
 		var stories = #stories#
@@ -89,7 +89,7 @@
 			for (var j = 0; j < tests.length; j++) {
 				var testElement = $("<div>");
 				testElement.addClass("test");
-				testElement.append("<div>" + tests[j] + "</div>");
+				testElement.append("<div>" + tests[j].name + "</div>");
 				storyElement.append(testElement);
 			}
 			

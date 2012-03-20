@@ -14,21 +14,20 @@ public class ReporterTest {
 
 	private Reporter reporter = new Reporter();
 
-	@Ignore
+	@Test
 	public void empty_report_for_empty_input() {
-//		assertEquals("", reporter.report(new TestInformations(new ArrayList<TestInformation>())));
+		assertEquals("", reporter.report(new ArrayList<StoryData>()));
 	}
 	
-	@SuppressWarnings("serial")
 	@Ignore
 	public void report_for_some_inputs() {
-//		Reporter reporter = new Reporter();
-//		ArrayList<TestInformation> results = new ArrayList<TestInformation>() {{
-//			add(new TestInformation(731, "the test", true));
-//		}};
-//		
-//		String report = reporter.report(new TestInformations(results));
-//		assertTrue(report.contains("<html>"));
+		Reporter reporter = new Reporter();
+		
+		ArrayList<StoryData> storyDatas = new ArrayList<StoryData>();
+		storyDatas.add(new StoryData(100, "story_url"));
+		
+		String report = reporter.report(storyDatas);
+		assertTrue(report.contains("<html>"));
 	}
 	
 }
