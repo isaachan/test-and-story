@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.Test;
 
 import com.thoughtworks.testandstory.plugins.Story;
-import com.thoughtworks.testandstory.plugins.TestInformation;
 import com.thoughtworks.testandstory.plugins.TestedStories;
 
 public class TestedStoriesTest {
@@ -20,7 +19,7 @@ public class TestedStoriesTest {
 	@Test
 	public void should_get_storydatas_from_one_class_labeled_by_story() {
 		final RefelectionClassData classData = new RefelectionClassData(TestedStoriesTest.class);
-		StoryDatas storyDatas = new TestedStories(new ArrayList<ClassData>() {{add(classData);}}, story_url_template).getStoryDatas(100);
+		List<StoryData> storyDatas = new TestedStories(new ArrayList<ClassData>() {{add(classData);}}, story_url_template).getStoryDatas(100);
 		StoryData storyData = storyDatas.get(0);
 		
 		assertEquals(100, storyData.getNumber());
@@ -37,21 +36,21 @@ public class TestedStoriesTest {
 			add(new RefelectionClassData(TestedStoriesTest.class));
 			add(new RefelectionClassData(AnotherTestCase.class));
 		}};
-		StoryDatas infos = new TestedStories(testClasses, story_url_template).getStoryDatas();
-		assertEquals(2, infos.all().size());
+		List<StoryData> infos = new TestedStories(testClasses, story_url_template).getStoryDatas();
+		assertEquals(2, infos.size());
 	}
 
 	@Test
 	public void should_get_empty_list_if_no_story_labeled_tests_found() {
-		StoryDatas infos = new TestedStories(new ArrayList<ClassData>() {{add(new RefelectionClassData(FunctionalTestCase.class));}}, story_url_template).getStoryDatas(12345);
-		assertEquals(0, infos.all().size());
+		List<StoryData> infos = new TestedStories(new ArrayList<ClassData>() {{add(new RefelectionClassData(FunctionalTestCase.class));}}, story_url_template).getStoryDatas(12345);
+		assertEquals(0, infos.size());
 	}
 	
 	@Test
 	public void should_find_classes_under_directory() {
 		String directory = "./fixtures";
-		StoryDatas infos = TestedStories.find(new String[] {directory}, story_url_template).getStoryDatas(731);
-		assertEquals(2, infos.all().size());
+		List<StoryData> infos = TestedStories.find(new String[] {directory}, story_url_template).getStoryDatas(731);
+		assertEquals(2, infos.size());
 		
 		infos = TestedStories.find(new String[] {directory}, story_url_template).getStoryDatas(8413);
 		assertEquals(1, infos.get(0).getTests().size());
@@ -59,9 +58,9 @@ public class TestedStoriesTest {
 	
 	@Test
 	public void should_handler_null_distories() {
-        assertEquals(0, TestedStories.find((String[]) null, story_url_template).getStoryDatas().all().size());
+        assertEquals(0, TestedStories.find((String[]) null, story_url_template).getStoryDatas().size());
         
-        assertEquals(0, TestedStories.find(new String[] {null, null}, story_url_template).getStoryDatas().all().size());
+        assertEquals(0, TestedStories.find(new String[] {null, null}, story_url_template).getStoryDatas().size());
 	}
 	
 	@Test

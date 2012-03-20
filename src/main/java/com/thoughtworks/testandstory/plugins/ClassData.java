@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.util.List;
 
 import javassist.ClassPool;
-import javassist.CtClass;
 import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.ClassFile;
 import javassist.bytecode.MethodInfo;
@@ -14,7 +13,6 @@ import javassist.bytecode.MethodInfo;
 public class ClassData extends MetaData {
 
 	private ClassFile classFile;
-	private ClassPool classPool;
 
 	protected ClassData() { }
 	
@@ -22,7 +20,6 @@ public class ClassData extends MetaData {
 		try {
 			this.classFile = new ClassFile(new DataInputStream(new FileInputStream(classFilePath)));
 			this.attribute = (AnnotationsAttribute) classFile.getAttribute(AnnotationsAttribute.visibleTag);
-			this.classPool = classPool;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

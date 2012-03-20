@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class Reporter {
 
@@ -13,18 +14,18 @@ public class Reporter {
 	final ST storyTemplate = new ST(readFileContentAsString("story.st"));
 	final ST testTemplate = new ST(readFileContentAsString("test.st"));
 
-	public String report(TestInformations testInformations) {
-		if (testInformations.all().isEmpty()) return "";
+	public String report(List<StoryData> testInformations) {
+		if (testInformations.isEmpty()) return "";
 		return generateReportForTests(testInformations);
 	}
 
-	private String generateReportForTests(TestInformations testInformations) {
+	private String generateReportForTests(List<StoryData> testInformations) {
 		StringBuffer reportForStories = new StringBuffer();
-		for (int storyNumber : testInformations.storyNumbers()) {
-			reportForStories.append(reportForStory(testInformations, storyNumber));
-		}
-		
-		reportTemplate.add("stories", reportForStories.toString());
+//		for (int storyNumber : testInformations.storyNumbers()) {
+//			reportForStories.append(reportForStory(testInformations, storyNumber));
+//		}
+//		
+//		reportTemplate.add("stories", reportForStories.toString());
 		return reportTemplate.render();
 	}
 
@@ -43,7 +44,7 @@ public class Reporter {
 		return testTemplate.render();
 	}
 
-	public void generateReport(TestInformations infos, File report) {
+	public void generateReport(List<StoryData> infos, File report) {
 		try {
 			if (!report.exists()) report.createNewFile();
 			FileWriter writer = new FileWriter(report);
