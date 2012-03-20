@@ -22,24 +22,19 @@ public class TestedStories {
 		}};
 	}
 	
-	public TestInformations get() {
-		return get(-1);
+	public StoryData get() {
+		return new StoryData(get(-1).testInformations);
 	}
 
-	public TestInformations get(int number) {
-		
+	public StoryData get(int number) {
 		List<TestInformation> results = new ArrayList<TestInformation>();
 		
 		for (ClassData classData : testClasses) {
-			if (classData.isAnnotationPresent(Story.class) && isMeetNumber(number, classData.getAnnotation(Story.class))) {
-				results.add(getStoryInformation(classData.getAnnotation(Story.class), classData.getSimpleName(), false));
-			} else {
-				collectFromOneClass(results, classData, number);
-			}
+			collectFromOneClass(results, classData, number);
 		}
 		
 		Collections.sort(results);
-		return new TestInformations(results);
+		return new StoryData(new TestInformations(results));
 	}
 
 	private TestInformation getStoryInformation(Story annotation, String description, boolean fromMethod) {
