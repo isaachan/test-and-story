@@ -11,8 +11,6 @@ import java.util.List;
 public class Reporter {
 
 	final ST reportTemplate = new ST(readFileContentAsString("report.st"));
-	final ST storyTemplate = new ST(readFileContentAsString("story.st"));
-	final ST testTemplate = new ST(readFileContentAsString("test.st"));
 
 	public String report(List<StoryData> testInformations) {
 		if (testInformations.isEmpty()) return "";
@@ -27,21 +25,6 @@ public class Reporter {
 //		
 //		reportTemplate.add("stories", reportForStories.toString());
 		return reportTemplate.render();
-	}
-
-	private String reportForStory(TestInformations testInformations, int storyNumber) {
-		StringBuffer reportForTestsInStory = new StringBuffer();
-		for (TestInformation info : testInformations.getTestInformationsBy(storyNumber)) {
-			reportForTestsInStory.append(reportForTest(info));
-		}
-		storyTemplate.add("number", storyNumber);
-		storyTemplate.add("tests", reportForTestsInStory);
-		return storyTemplate.render();
-	}
-
-	private String reportForTest(TestInformation info) {
-		testTemplate.add("description", info.getMethodOrClassName());
-		return testTemplate.render();
 	}
 
 	public void generateReport(List<StoryData> infos, File report) {
