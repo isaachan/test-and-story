@@ -14,68 +14,54 @@ import com.thoughtworks.testandstory.plugins.TestedStories;
 
 public class TestedStoriesTest {
 
+	private static final String story_url_template = "http://jira.com/story/%s";
+
+	@Story(100)
 	@Test
-	@Story(732)
-	public void should_get_information_from_method_labeled_by_story() {
-		List<TestInformation> infos = new TestedStories(new RefelectionClassData(TestedStoriesTest.class)).get().testInformations.all();
-		TestInformation info = infos.get(0);
+	public void should_get_storydatas_from_one_class_labeled_by_story() {
+		final RefelectionClassData classData = new RefelectionClassData(TestedStoriesTest.class);
+		StoryDatas storyDatas = new TestedStories(new ArrayList<ClassData>() {{add(classData);}}, story_url_template).getStoryDatas(100);
+		StoryData storyData = storyDatas.get(0);
 		
-		assertEquals(732, info.number());
-		assertEquals("should_get_information_from_method_labeled_by_story", info.getMethodOrClassName());
-		assertTrue(info.fromMethod());
+		assertEquals(100, storyData.getNumber());
+		assertEquals("http://jira.com/story/100", storyData.getLink());
+		assertEquals(1, storyData.getTests().size());
+		assertEquals("should_get_storydatas_from_one_class_labeled_by_story", storyData.getTests().get(0).getName());
 	}
 	
 	@SuppressWarnings("serial")
 	@Test
 	@Story(731)
-	public void should_get_information_from_methods_labeled_by_story() {
+	public void should_get_storydatas_from_multiple_classes_labeled_by_story() {
 		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
 			add(new RefelectionClassData(TestedStoriesTest.class));
 			add(new RefelectionClassData(AnotherTestCase.class));
 		}};
-		List<TestInformation> infos = new TestedStories(testClasses).get().testInformations.all();
-		assertEquals(3, infos.size());
+		StoryDatas infos = new TestedStories(testClasses, story_url_template).getStoryDatas();
+		assertEquals(2, infos.all().size());
 	}
-	
-	@SuppressWarnings("serial")
-	@Test
-	public void should_get_information_by_specified_story_number() {
-		Collection<ClassData> testClasses = new ArrayList<ClassData>() {{
-			add(new RefelectionClassData(TestedStoriesTest.class));
-			add(new RefelectionClassData(AnotherTestCase.class));
-		}};
-		List<TestInformation> infos = new TestedStories(testClasses).get(731).testInformations.all();
-		
-		assertEquals(2, infos.size());
-	}
-	
-	@Test
-	public void should_get_type_of_test() {
-		List<TestInformation> infos = new TestedStories(new RefelectionClassData(IntegrationTestCase.class)).get().testInformations.all();
-		assertEquals(732, infos.get(0).number());
-	}
-	
+
 	@Test
 	public void should_get_empty_list_if_no_story_labeled_tests_found() {
-		List<TestInformation> infos = new TestedStories(new RefelectionClassData(FunctionalTestCase.class)).get(12345).testInformations.all();
-		assertEquals(0, infos.size());
+		StoryDatas infos = new TestedStories(new ArrayList<ClassData>() {{add(new RefelectionClassData(FunctionalTestCase.class));}}, story_url_template).getStoryDatas(12345);
+		assertEquals(0, infos.all().size());
 	}
 	
 	@Test
 	public void should_find_classes_under_directory() {
 		String directory = "./fixtures";
-		List<TestInformation> infos = TestedStories.find(directory).get(731).testInformations.all();
-		assertEquals(2, infos.size());
+		StoryDatas infos = TestedStories.find(new String[] {directory}, story_url_template).getStoryDatas(731);
+		assertEquals(2, infos.all().size());
 		
-		infos = TestedStories.find(directory).get(8413).testInformations.all();
-		assertEquals(1, infos.size());
+		infos = TestedStories.find(new String[] {directory}, story_url_template).getStoryDatas(8413);
+		assertEquals(1, infos.get(0).getTests().size());
 	}
 	
 	@Test
 	public void should_handler_null_distories() {
-        assertEquals(0, TestedStories.find((String[]) null).get().testInformations.all().size());
+        assertEquals(0, TestedStories.find((String[]) null, story_url_template).getStoryDatas().all().size());
         
-        assertEquals(0, TestedStories.find(new String[] {null, null}).get().testInformations.all().size());
+        assertEquals(0, TestedStories.find(new String[] {null, null}, story_url_template).getStoryDatas().all().size());
 	}
 	
 	@Test

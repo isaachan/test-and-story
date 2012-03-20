@@ -10,7 +10,7 @@ public class ClassDataFinder {
 
 	private static ClassPool pool = ClassPool.getDefault();
 	
-	public static ArrayList<ClassData> findClassDatas(String... directories) {
+	public static ArrayList<ClassData> findClassDatas(String[] directories) {
 	    if (directories == null) return new ArrayList<ClassData>();
 	    
 		ArrayList<ClassData> classes = new ArrayList<ClassData>();
@@ -21,12 +21,12 @@ public class ClassDataFinder {
 		return classes;
 	}
 	
-	public static TestedStories find(String...directories) {
+	public static TestedStories find(String[] directories, String storyUrlTemplate) {
 		ArrayList<ClassData> classes = new ArrayList<ClassData>();
 		for(String dir : directories) {
 			classes.addAll(findClasses(dir));
 		}
-		return new TestedStories(classes);
+		return new TestedStories(classes, storyUrlTemplate);
 	}
 
 	public static ArrayList<ClassData> findClasses(String directory) {
