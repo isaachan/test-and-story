@@ -14,13 +14,8 @@ public class StoryDataTest {
 
 	private Gson gson = new Gson();
 	private ArrayList<StoryData> storyDatas;
-	private PageReader dummyPageLoader = new PageReader() {
-
-		@Override
-		public String getStorySummary(String storyUrl) {
-			return "";
-		}};
-
+	private PageReader dummyPageLoader = new DummyPageReader();
+	
 	@Before
 	public void setUp() {
 		storyDatas = new ArrayList<StoryData>();

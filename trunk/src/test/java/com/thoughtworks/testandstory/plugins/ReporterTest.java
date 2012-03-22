@@ -13,12 +13,7 @@ import com.thoughtworks.testandstory.plugins.Reporter;
 public class ReporterTest {
 
 	private Reporter reporter = new Reporter();
-	private PageReader dummayPageReader = new PageReader() {
-	        @Override
-	        public String getStorySummary(String storyUrl)
-	        {
-	            return "";
-	        }};
+	private PageReader dummyPageReader = new DummyPageReader();
 	        
 	@Test
 	public void empty_report_for_empty_input() {
@@ -30,7 +25,7 @@ public class ReporterTest {
 		Reporter reporter = new Reporter();
 		
 		ArrayList<StoryData> storyDatas = new ArrayList<StoryData>();
-		storyDatas.add(new StoryData(100, "story_url", dummayPageReader));
+		storyDatas.add(new StoryData(100, "story_url", dummyPageReader));
 		
 		String report = reporter.report(storyDatas);
 		assertTrue(report.contains("<html>"));

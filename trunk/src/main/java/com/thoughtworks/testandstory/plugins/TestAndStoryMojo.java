@@ -12,6 +12,8 @@ import org.apache.maven.plugin.MojoFailureException;
  */
 public class TestAndStoryMojo extends AbstractMojo {
 
+	private final Reporter reporter = new Reporter();
+
 	/**
 	 * @parameter testDirectries
 	 */
@@ -33,14 +35,20 @@ public class TestAndStoryMojo extends AbstractMojo {
 	private String password;
 	
 	/**
+	 * @parameter displayStorySummary
+	 */
+	private boolean displayStorySummary = true;
+	
+	/**
 	 * @parameter storyUrlTemplate
 	 */
 	private String storyUrlTemplate = "#%s";
-	
+
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		Collection<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate, new JiraPageReader()).getStoryDatas();
-		new Reporter().generateReport(storyData, report);
+		PageReader pageReader = displayStorySummary ? new JiraPageReader(userName, password) : new DummyPageReader();
+		Collection<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate, pageReader).getStoryDatas();
+		reporter.generateReport(storyData, report);
 	}
 
 }
