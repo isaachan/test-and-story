@@ -2,6 +2,7 @@ package com.thoughtworks.testandstory.plugins;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class TestedStories {
 			if (isLabeledByStory(m) && isMeetNumber(storyNumber, m.getAnnotation(Story.class))) {
 				int number = m.getAnnotation(Story.class).value();
 				if (!storyDatas.containsKey(number)) {
-					StoryData storyData = new StoryData(number, String.format(storyUrlTemplate, number), this.pageReader);
+					StoryData storyData = new StoryData(number, String.format(storyUrlTemplate, number), pageReader);
 					storyDatas.put(number, storyData);
 				}
 				storyDatas.get(number).addTest(new TestData(m.getName()));
@@ -49,7 +50,8 @@ public class TestedStories {
 	}
 
 	public static TestedStories find(String[] directories, String storyUrlTemplate, PageReader pageReader) {
-		return new TestedStories(ClassDataFinder.findClassDatas(directories), storyUrlTemplate, pageReader);
+		List<ClassData> classDatas = ClassDataFinder.findClassDatas(directories);
+		return new TestedStories(classDatas, storyUrlTemplate, pageReader);
 	}
 
 	public Collection<StoryData> getStoryDatas() {
