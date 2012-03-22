@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Story criterias covered by tests</title>
+	<title>Specifications on Unit tests</title>
 	<style>
         body {
             font-family: verdana,arial,helvetica,sans-serif;
