@@ -4,27 +4,49 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Story criterias covered by tests</title>
 	<style>
-		body {
-			font-family: verdana,arial,helvetica,sans-serif;
-			font-size: 80%;
-		}
-		
-		.story-summary {
-			background-color: #CC6600;
-			margin-bottom: 1px;
-		}
-		
-		.test { 
-			font: boder;
-			background-color: #66CC66;
-			margin-bottom: 1px;
-		}
-		
-		.test div {
-			margin-left: 10px;
-		}
-		
-	</style>
+        body {
+            font-family: verdana,arial,helvetica,sans-serif;
+            font-size: 80%;
+        }
+
+        h1 {
+            color: #5A6986;
+        }
+
+        .story {
+            border: 1px solid #B2D5EE;
+            margin-bottom: 10px;
+            padding-bottom:5px;
+            background-color: #F9FCFD;
+        }
+
+        .story a{
+            color: #5A6986;
+            font-weight: bold;
+        }
+        
+        .story-summary {
+            background-color: #E3F0F9;
+
+            margin-bottom: 1px;
+            padding: 10px;
+        }
+        
+        .test { 
+            font: boder;
+            padding: 5px 10px;
+            margin-bottom: 1px;
+            border-top: 1px solid #E3F0F9;
+
+
+            color:#404041;
+        }
+        
+        .test div {
+            margin-left: 10px;
+        }
+        
+    </style>
 	
 	<script src="https://assetsdev.int.corp.sun/app-resources/js/lib/jquery-1.7.1.min.js"></script>
 	

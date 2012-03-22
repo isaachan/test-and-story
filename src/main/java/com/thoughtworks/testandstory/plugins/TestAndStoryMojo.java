@@ -20,17 +20,25 @@ public class TestAndStoryMojo extends AbstractMojo {
 	/**
 	 * @parameter report
 	 */
-	private File report;
+	private File report = new File("report.html");
+	
+	/**
+	 * @parameter userName;
+	 */
+	private String userName;
+	
+	/**
+	 * @parameter password;
+	 */
+	private String password;
 	
 	/**
 	 * @parameter storyUrlTemplate
 	 */
-	private String storyUrlTemplate;
+	private String storyUrlTemplate = "#%s";
 	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		if (report == null) { report = new File("report.html"); }
-		
 		Collection<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate, new JiraPageReader()).getStoryDatas();
 		new Reporter().generateReport(storyData, report);
 	}
