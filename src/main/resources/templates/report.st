@@ -48,6 +48,7 @@
         
     </style>
 	
+	<!-- <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  -->
 	<script src="https://assetsdev.int.corp.sun/app-resources/js/lib/jquery-1.7.1.min.js"></script>
 	
 	<script language="javascript">
@@ -96,7 +97,7 @@
 		for (var i = 0; i < stories.length; i++) {
 			var story = stories[i];
 			
-			var storySummaryElement = $("<div>Story-" + story.number + ", " + story.summary + "</div>");
+			var storySummaryElement = $("<div>Story-" + story.number + " " + story.summary + "</div>");
 			storySummaryElement.addClass("story-summary");
 			storySummaryElement.attr("id", story.number);
 			

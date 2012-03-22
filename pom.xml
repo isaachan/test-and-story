@@ -54,7 +54,7 @@
         			<source>1.6</source>
       			</configuration>
     		</plugin>
-
+  
       		<plugin>
 		        <groupId>com.thoughtworks.testandstory.plugins</groupId>
 		        <artifactId>test-and-story-plugin</artifactId>
@@ -76,6 +76,7 @@
 						<param>C:/Dev/Workspace/trunk/homeonline-webapp/target/test-classes</param>
 					</testDirectries>
 					<storyUrlTemplate>http://jira.int.corp.sun/jira/browse/LSP-%s</storyUrlTemplate>
+					<showmore>false</showmore>
 				</configuration>
       		</plugin>
 

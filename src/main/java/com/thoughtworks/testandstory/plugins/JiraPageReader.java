@@ -5,24 +5,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class JiraPageReader implements PageReader
-{
+public class JiraPageReader implements PageReader {
 
-    public String getStorySummary(String storyUrl) {
+    private final String userName;
+	private final String password;
+
+	public JiraPageReader(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
+
+	public String getStorySummary(String storyUrl) {
         BufferedReader jiraPage = null;
+        String storyUrlWithAuth = null;
         try {
-            jiraPage = new BufferedReader(new InputStreamReader(new URL(storyUrl).openStream()));
+            storyUrlWithAuth = String.format("%s?os_username=%s&os_password=%s", storyUrl, userName, password);
+			jiraPage = new BufferedReader(new InputStreamReader(new URL(storyUrlWithAuth).openStream()));
             return getStorySummary(jiraPage);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("[ERROR]: Failed to load page " + storyUrlWithAuth);
         } finally {
-            if (jiraPage != null) {
-                try {
-                    jiraPage.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            if (jiraPage == null) return "Not Found";
+            try {
+                jiraPage.close();
+            } catch (IOException ignore) {}     
         }
         return "Not Found";
     }
@@ -38,7 +44,7 @@ public class JiraPageReader implements PageReader
         return "Not Found";
     }
 
-    // <title>[#LSP-473] to capture the oldest policy holder&#39;s DoB - Suncorp Central Jira </title>
+    // <title>[#LSP-473] to capture the oldest policy holder's DoB - Suncorp Central Jira </title>
     private String parse(String currentLine)
     {
         return currentLine.replace(" - Suncorp Central Jira </title>", "").substring(currentLine.indexOf(']') + 1);

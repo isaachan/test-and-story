@@ -13,7 +13,7 @@ public class StoryData {
 	public StoryData(int number, String link, PageReader pageReader) {
 		this.number = number;
 		this.link = link;
-        this.summary = pageReader.getStorySummary(String.format("%s?os_username=%s&os_password=%s", link, "u348135", "12345ssdlh"));
+        this.summary = pageReader.getStorySummary(link);
 	}
 
 	public int getNumber() {

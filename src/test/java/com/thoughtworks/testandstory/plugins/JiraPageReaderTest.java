@@ -21,7 +21,7 @@ public class JiraPageReaderTest
     
     @Test
     public void should_get_story_summary_from_jira_page() throws IOException {
-        assertEquals(" to capture the oldest policy holder&#39;s DoB", new JiraPageReader().getStorySummary(jiraPage));
+        assertEquals(" to capture the oldest policy holder&#39;s DoB", new JiraPageReader("", "").getStorySummary(jiraPage));
     }
 
   
