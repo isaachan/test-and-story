@@ -8,7 +8,10 @@
   	<version>2.0.8-SNAPSHOT</version>
   	<name>test-and-story-plugin Maven Mojo</name>
 	<url>http://maven.apache.org</url>
-  	
+  	<scm>
+		<connection>scm:svn:https://test-and-story.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://test-and-story.googlecode.com/svn/trunk/</developerConnection>
+	</scm>
   	<dependencies>
     
     	<dependency>
