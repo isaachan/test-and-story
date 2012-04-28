@@ -78,14 +78,15 @@
       		<artifactId>junit</artifactId>
       		<version>4.5</version>
     	</dependency>
-    	
-    	<!-- 
-    	<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm-commons</artifactId>
-			<version>3.3.1</version>
-		</dependency>
-		-->
+
+
+          <!--
+          <dependency>
+              <groupId>asm</groupId>
+              <artifactId>asm-commons</artifactId>
+              <version>3.3.1</version>
+          </dependency>
+          -->
     	
     	<dependency>
 			<groupId>javassist</groupId>
@@ -97,7 +98,7 @@
 	      	<groupId>com.google.code.gson</groupId>
 	      	<artifactId>gson</artifactId>
 	      	<version>2.1</version>
-	    </dependency>		            
+	    </dependency>
   	</dependencies>
     
   	<build>
@@ -144,6 +145,7 @@
 				<configuration>
 					<archive>
 					<manifestEntries>
+                        <Main-Class>com.thoughtworks.testandstory.plugins.Compare</Main-Class>
 						<Build-Number>${BUILD_NUMBER}</Build-Number>
 						<Build-Url>${BUILD_URL}</Build-Url>
 						<Svn-Revision>${SVN_REVISION}</Svn-Revision>
