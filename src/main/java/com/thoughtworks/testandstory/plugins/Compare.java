@@ -21,7 +21,7 @@ public class Compare {
     }
 
     private static void printUseage() {
-        System.out.println("Useage: java -cp test-and-story.jar com.thoughtworks.testandstory.plugin.Compare [BUILD NUMBER] [BUILD NUMBER]");
+        System.out.println("Useage: java \"-Djava.ext.dirs=[libPath]\" com.thoughtworks.testandstory.plugin.Compare [BUILD NUMBER] [BUILD NUMBER]");
     }
 
     private static void execute(String[] args, UnitTestsReportComparator comparator) throws IOException {
