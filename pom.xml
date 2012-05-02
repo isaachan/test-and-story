@@ -145,7 +145,7 @@
 				<configuration>
 					<archive>
 					<manifestEntries>
-                        <Main-Class>com.thoughtworks.testandstory.plugins.Compare</Main-Class>
+            <Main-Class>com.thoughtworks.testandstory.plugins.Compare</Main-Class>
 						<Build-Number>${BUILD_NUMBER}</Build-Number>
 						<Build-Url>${BUILD_URL}</Build-Url>
 						<Svn-Revision>${SVN_REVISION}</Svn-Revision>
