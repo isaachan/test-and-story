@@ -4,7 +4,7 @@
   	<groupId>com.thoughtworks.testandstory.plugins</groupId>
   	<artifactId>test-and-story-plugin</artifactId>
   	<packaging>maven-plugin</packaging>
-  	<version>2.1.0-SNAPSHOT</version>
+  	<version>2.0.11-SNAPSHOT</version>
   	<name>test-and-story-plugin Maven Mojo</name>
 	<url>http://maven.apache.org</url>
   	<scm>
