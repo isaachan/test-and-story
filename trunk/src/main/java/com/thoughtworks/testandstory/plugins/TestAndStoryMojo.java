@@ -40,15 +40,32 @@ public class TestAndStoryMojo extends AbstractMojo {
 	private boolean displayStorySummary = true;
 	
 	/**
+	 * @parameter daemon
+	 */
+	private boolean daemon = false;
+	
+	/**
 	 * @parameter storyUrlTemplate
 	 */
 	private String storyUrlTemplate = "#%s";
 
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		if (daemon) {
+			Thread thread = new Thread() {
+				@Override
+				public void run() { doExecute(); }
+			};
+			thread.setDaemon(true);
+			thread.start();
+		} else {
+			doExecute();
+		}
+	}
+	
+	private void doExecute() {
 		PageReader pageReader = displayStorySummary ? new JiraPageReader(userName, password) : new DummyPageReader();
 		Collection<StoryData> storyData = TestedStories.find(testDirectries, storyUrlTemplate, pageReader).getStoryDatas();
 		reporter.generateReport(storyData, report);
-	}
-
+	};
 }
