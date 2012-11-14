@@ -52,7 +52,7 @@ public class UnitTestsReportComparator {
     private StoryData findStory(StoryData modifiedStory, List<StoryData> storyDatas) {
         StoryData storyData = null;
         for (StoryData story : storyDatas) {
-            if (modifiedStory.getNumber() == story.getNumber() && modifiedStory.getLink().equals(story.getLink()) && modifiedStory.getSummary().equals(story.getSummary())) {
+            if (modifiedStory.getNumber().equals(story.getNumber()) && modifiedStory.getLink().equals(story.getLink()) && modifiedStory.getSummary().equals(story.getSummary())) {
                 storyData = story;
             }
         }
