@@ -10,9 +10,7 @@
     <url>http://maven.apache.org</url>
     <scm>
         <connection>scm:svn:https://test-and-story.googlecode.com/svn/tags/test-and-story-plugin-2.0.14</connection>
-        <developerConnection>scm:svn:https://test-and-story.googlecode.com/svn/tags/test-and-story-plugin-2.0
-            .14
-        </developerConnection>
+        <developerConnection>scm:svn:https://test-and-story.googlecode.com/svn/tags/test-and-story-plugin-2.0.14</developerConnection>
     </scm>
     <profiles>
         <profile>
