@@ -25,7 +25,7 @@ public class ReporterTest {
 		Reporter reporter = new Reporter();
 		
 		ArrayList<StoryData> storyDatas = new ArrayList<StoryData>();
-		storyDatas.add(new StoryData(100, "story_url", dummyPageReader));
+		storyDatas.add(new StoryData("100", "story_url", dummyPageReader));
 		
 		String report = reporter.report(storyDatas);
 		assertTrue(report.contains("<html>"));

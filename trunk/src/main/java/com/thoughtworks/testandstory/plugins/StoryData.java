@@ -6,23 +6,23 @@ import java.util.List;
 public class StoryData {
 
     private final ArrayList<TestData> tests = new ArrayList<TestData>();
-    private final int number;
+    private final String number;
     private final String link;
     private final String summary;
 
-    public StoryData(int number, String link, PageReader pageReader) {
+    public StoryData(String number, String link, PageReader pageReader) {
         this.number = number;
         this.link = link;
         this.summary = pageReader.getStorySummary(link);
     }
 
-    public StoryData(int number, String link, String summary) {
+    public StoryData(String number, String link, String summary) {
         this.number = number;
         this.link = link;
         this.summary = summary;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -65,7 +65,7 @@ public class StoryData {
     @Override
     public int hashCode() {
         int result = tests.hashCode();
-        result += number;
+        result += number.hashCode();
         result += link.hashCode();
         result += summary.hashCode();
         return result;

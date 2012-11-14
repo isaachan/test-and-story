@@ -19,18 +19,18 @@ public class TestedStories {
         this.pageReader = pageReader;
 	}
 	
-	public Collection<StoryData> getStoryDatas(int storyNumber) {
-		Map<Integer, StoryData> storyDatas = new HashMap<Integer, StoryData>();
+	public Collection<StoryData> getStoryDatas(String storyNumber) {
+		Map<String, StoryData> storyDatas = new HashMap<String, StoryData>();
 		for (ClassData classData : testClasses) {
 			collectTestFromClass(storyDatas, classData, storyNumber);
 		}
 		return storyDatas.values();
 	}
 
-	private void collectTestFromClass(Map<Integer, StoryData> storyDatas, ClassData classData, int storyNumber) {
+	private void collectTestFromClass(Map<String, StoryData> storyDatas, ClassData classData, String storyNumber) {
 		for(MethodData m : classData.getMethods()) {
 			if (isLabeledByStory(m) && isMeetNumber(storyNumber, m.getAnnotation(Story.class))) {
-				int number = m.getAnnotation(Story.class).value();
+				String number = m.getAnnotation(Story.class).value();
 				if (!storyDatas.containsKey(number)) {
 					StoryData storyData = new StoryData(number, String.format(storyUrlTemplate, number), pageReader);
 					storyDatas.put(number, storyData);
@@ -40,9 +40,9 @@ public class TestedStories {
 		}
 	}
 
-	private boolean isMeetNumber(int number, Story annotation) {
-		if (number == -1) return true; 
-		return annotation.value() == number;
+	private boolean isMeetNumber(String number, Story annotation) {
+		if (number.endsWith("-1")) return true; 
+		return annotation.value().equals(number);
 	}
 
 	private boolean isLabeledByStory(MethodData m) {
@@ -55,7 +55,7 @@ public class TestedStories {
 	}
 
 	public Collection<StoryData> getStoryDatas() {
-		return getStoryDatas(-1);
+		return getStoryDatas("-1");
 	}
 	
 }

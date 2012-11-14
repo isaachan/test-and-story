@@ -24,9 +24,9 @@ public class UnitTestsReportReaderTest {
     @Test
     public void should_get_all_story_objects() throws Exception {
         List<StoryData> storyDatas = unitTestsReportReader.getAllStoryObjects(unitTestsReportPage);
-        assertThat(storyDatas.get(0).getNumber(), is(731));
+        assertThat(storyDatas.get(0).getNumber(), is("731"));
         assertThat(storyDatas.get(0).getTests().get(0).getName(), is("should_x"));
-        assertThat(storyDatas.get(1).getNumber(), is(732));
+        assertThat(storyDatas.get(1).getNumber(), is("732"));
         assertThat(storyDatas.get(1).getTests().get(1).getName(), is("should_hhh"));
     }
 }
