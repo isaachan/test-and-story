@@ -8,9 +8,9 @@
   	<name>test-and-story-plugin Maven Mojo</name>
 	<url>http://maven.apache.org</url>
   	<scm>
-		<connection>scm:svn:https://test-and-story.googlecode.com/svn/tags/test-and-story-plugin-2.0.13</connection>
+		<connection>scm:svn:https://test-and-story.googlecode.com/svn/tags/test-and-story-plugin-2.0.15</connection>
 		<developerConnection>scm:svn:https://test-and-story.googlecode.com/svn/tags/test-and-story-plugin-2.0
-            .13</developerConnection>
+            .15</developerConnection>
 	</scm>
 	<profiles>
 		<profile>
