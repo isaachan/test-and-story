@@ -99,12 +99,6 @@
             <artifactId>gson</artifactId>
             <version>2.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.thoughtworks.testandstory.plugins</groupId>
-            <artifactId>test-and-story-plugin</artifactId>
-            <version>2.0.13</version>
-        </dependency>
     </dependencies>
 
     <build>
